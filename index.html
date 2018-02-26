@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="web3.min.js" ></script>
+    <title>Ethereum Account Balance</title>
+</head>
+<body>
+    <h1 id="my-account">Ethereum Account - ?</h1>
+    <h1 id="my-balance">My balance is ? WEI</h1>
+
+    <script>
+        if(typeof web3 !== "undefined"){
+
+            console.log("Web3 found!!")
+            web3 = new Web3(web3.currentProvider);
+            
+            // web3.eth.getAccounts((e, accounts) => {
+                
+            //     let firstAccount = accounts[0]
+
+            //     web3.eth.getBalance(firstAccount, (e, balance) => {
+            //         document.getElementById('my-balance').innerHTML = "My Ethereum balance is " + balance + "  WEI";
+            //     })
+            // })
+            
+            web3.eth.getAccounts()
+                .then( (accounts) => accounts[0] )
+                .then( (firstAccount) => (web3.eth.getBalance(firstAccount), firstAccount.toString()) )
+                .then( (res) => { 
+                    document.getElementById('my-balance').innerHTML = "My Ethereum balance is " + res[0] + "  WEI"; 
+                    document.getElementById('my-account').innerHTML = "Ethereum Account - " + res[1]; 
+                    console.log(typeof res[1])
+                })
+        } else {
+            alert("Couldn't find provider")
+        }
+    
+    </script>
+</body>
+</html>
